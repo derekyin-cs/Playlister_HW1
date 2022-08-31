@@ -64,6 +64,10 @@ export default class PlaylisterController {
             this.model.unselectAll();
             this.model.unselectCurrentList();
         }
+
+        document.getElementById("add-button").onmousedown = (event) => {
+            this.model.add();
+        }
     }
 
     /*

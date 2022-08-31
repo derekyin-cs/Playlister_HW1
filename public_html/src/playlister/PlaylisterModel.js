@@ -259,6 +259,10 @@ export default class PlaylisterModel {
             this.view.updateToolbarButtons(this);
         }
     }
+    // implement logic for adding Untitled, Unknown, dQw4w9WgXcQ
+    // add() {
+        
+    // }
 
     // NOW THE FUNCTIONS THAT CREATE AND ADD TRANSACTIONS
     // TO THE TRANSACTION STACK

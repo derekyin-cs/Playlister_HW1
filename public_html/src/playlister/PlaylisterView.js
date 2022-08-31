@@ -216,7 +216,7 @@ export default class PlaylisterView {
             this.disableButton("undo-button");
             this.disableButton("redo-button");
             this.disableButton("close-button");
-            this.disableButton("add-button");
+            // this.disableButton("add-button");
         }
     }
 
