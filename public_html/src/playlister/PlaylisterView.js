@@ -117,8 +117,15 @@ export default class PlaylisterView {
 
             // PUT THE CONTENT INTO THE CARD
             // Songs are now enumerated on refresh
-            let itemText = document.createTextNode((i + 1) + " " + song.title + " by " + song.artist);
-            itemDiv.appendChild(itemText);
+            // Youtube ID is listed in JSON, use this to hyperlink song names
+            let createA = document.createElement("a");
+            createA.setAttribute("href", "https://youtube.com/watch?v=" + song.youTubeId);
+            let itemNum = document.createTextNode((i+1) + " ");
+            let itemText = document.createTextNode(song.title + " by " + song.artist);
+            createA.appendChild(itemText);
+            // itemDiv.appendChild(itemText);
+            itemDiv.appendChild(itemNum);
+            itemDiv.appendChild(createA);
 
             // AND PUT THE CARD INTO THE UI
             itemsDiv.appendChild(itemDiv);
