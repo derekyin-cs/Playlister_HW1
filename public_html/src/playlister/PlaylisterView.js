@@ -5,7 +5,7 @@
  * for loading data into our controls and building other UI controls.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Derek Yin
  */
 export default class PlaylisterView {
     constructor() {}
@@ -65,6 +65,8 @@ export default class PlaylisterView {
         // MAKE THE CARD DIV
         let card = document.createElement("div");
         card.setAttribute("id", listId);
+        //card.classList.add("list-card");
+        //card.classList.add("unselected-list-card");
         card.setAttribute("class", "list-card");
         card.setAttribute("class", "unselected-list-card");
 
@@ -114,7 +116,8 @@ export default class PlaylisterView {
             itemDiv.id = "playlist-card-" + (i + 1);
 
             // PUT THE CONTENT INTO THE CARD
-            let itemText = document.createTextNode(song.title + " by " + song.artist);
+            // Songs are now enumerated on refresh
+            let itemText = document.createTextNode((i + 1) + " " + song.title + " by " + song.artist);
             itemDiv.appendChild(itemText);
 
             // AND PUT THE CARD INTO THE UI

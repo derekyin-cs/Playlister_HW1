@@ -15,7 +15,7 @@ import MoveSong_Transaction from "./transactions/MoveSong_Transaction.js";
  * inside the view of the page.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Derek Yin
  */
 export default class PlaylisterModel {
     /*

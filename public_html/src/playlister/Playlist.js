@@ -4,7 +4,7 @@
  * This class represents our playlist.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Derek Yin
  */
 export default class Playlist {
     constructor(initId) {
