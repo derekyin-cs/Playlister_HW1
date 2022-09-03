@@ -228,8 +228,31 @@ export default class PlaylisterView {
             this.disableButton("undo-button");
             this.disableButton("redo-button");
             this.disableButton("close-button");
-            // this.disableButton("add-button");
+            this.disableButton("add-button");
         }
+        else{
+            this.enableButton("add-list-button");
+            // CONDITIONS FOR FOOLPROOF DESIGN:
+    
+            // ENABLE UNDO BUTTON IF TRANSACTION STACK IS NOT EMPTY
+    
+            // ENABLE REDO BUTTON IF TRANSACTION STACK IS NOT EMPTY
+    
+            // ENABLE CLOSE BUTTON IF ANY LIST IS SELECTED
+            
+            // ENABLE ADD BUTTON IF ANY LIST IS SELECTED
+            if (this.model.hasCurrentList()){
+                this.enableButton("add-button");
+                this.enableButton("close-button");
+            }
+            // ********NOT WORKING AS EXPECTED*********
+            else {
+                this.disableButton("add-button");
+                this.disableButton("close-button");
+            }
+        }
+        
+        
     }
 
     /*
