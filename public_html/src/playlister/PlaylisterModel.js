@@ -84,6 +84,14 @@ export default class PlaylisterModel {
         this.deleteListId = initId;
     }
 
+    getDeleteSongIndex() {
+        return this.deleteSongIndex;
+    }
+
+    setDeleteSongIndex(initIndex){
+        this.deleteSongIndex = initIndex;
+    }
+
     toggleConfirmDialogOpen() {
         this.confirmDialogOpen = !this.confirmDialogOpen;
         this.view.updateToolbarButtons(this);
@@ -259,9 +267,22 @@ export default class PlaylisterModel {
             this.view.updateToolbarButtons(this);
         }
     }
-    // implement logic for adding Untitled, Unknown, dQw4w9WgXcQ
-    // add() {
-        
+
+    deleteSong(index) {
+        if (this.hasCurrentList()){
+            this.currentList.removeSongAt(index);
+            this.view.refreshPlaylist(this.currentList);
+        }
+        this.saveLists();
+    }
+
+    // addSong() {
+    //     // add logic here
+    //     return;
+    // }
+
+    // removeSong(index){
+
     // }
 
     // NOW THE FUNCTIONS THAT CREATE AND ADD TRANSACTIONS
@@ -272,4 +293,8 @@ export default class PlaylisterModel {
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }
+
+    // addAddSongTransaction(){
+    //     let transaction = new 
+    // }
 }

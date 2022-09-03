@@ -65,9 +65,9 @@ export default class PlaylisterController {
             this.model.unselectCurrentList();
         }
 
-        document.getElementById("add-button").onmousedown = (event) => {
-            this.model.add();
-        }
+        // document.getElementById("add-button").onmousedown = (event) => {
+        //     this.model.addSong();
+        // }
     }
 
     /*
@@ -105,7 +105,34 @@ export default class PlaylisterController {
             // CLOSE THE MODAL
             let deleteListModal = document.getElementById("delete-list-modal");
             deleteListModal.classList.remove("is-visible");
-        }        
+        }
+        
+        // RESPOND TO THE USER CONFIRMING TO DELETE A SONG
+        let deleteSongConfirmButton = document.getElementById("delete-song-confirm-button");
+        deleteSongConfirmButton.onclick = (event) => {
+            let deleteSongIndex = this.model.getDeleteSongIndex();
+
+            // DELETE THE SONG, THIS IS NOT UNDOABLE
+            this.model.deleteSong(deleteSongIndex);
+
+            // ALLOW OTHER INTERACTIONS
+            this.model.toggleConfirmDialogOpen();
+
+            // CLOSE THE MODAL
+            let deleteSongModal = document.getElementById("delete-song-modal");
+            deleteSongModal.classList.remove("is-visible");
+        }
+
+        // RESPOND TO THE USER CLOSING THE DELETE SONG MODAL
+        let deleteSongCancelButton = document.getElementById("delete-song-cancel-button");
+        deleteSongCancelButton.onclick = (event) => {
+            // ALLOW OTHER INTERACTIONS
+            this.model.toggleConfirmDialogOpen();
+
+            // CLOSE THE MODAL
+            let deleteSongModal = document.getElementById("delete-song-modal");
+            deleteSongModal.classList.remove("is-visible");
+        }
     }
 
     /*
@@ -197,6 +224,8 @@ export default class PlaylisterController {
         not known, it can be any number of songs. It's as many cards as there
         are songs in the playlist, and users can add and remove songs.
     */
+
+    // Add Logic for deleting song in the following function. Refactor code for Deleting playlist. 
     registerItemHandlers() {
         // SETUP THE HANDLERS FOR ALL SONG CARDS, WHICH ALL GET DONE
         // AT ONCE EVERY TIME DATA CHANGES, SINCE IT GETS REBUILT EACH TIME
@@ -240,6 +269,27 @@ export default class PlaylisterController {
                     && !isNaN(toIndex)) {
                     this.model.addMoveSongTransaction(fromIndex, toIndex);
                 }
+            }
+
+            document.getElementById("delete-song-" + i).onmousedown = (event) => {
+                // prevent this event from propagating to lower-level controls
+                this.ignoreParentClick(event);
+
+                this.model.setDeleteSongIndex(i);
+
+                //this.listToDeleteIndex = this.model.getListIndex(id);
+                // get name of song
+                //let songName = this.model.getList(this.listToDeleteIndex).getName();
+                let deleteSpan = document.getElementById("delete-song-span");
+                deleteSpan.innerHTML = "";
+                //deleteSpan.appendChild(document.createTextNode(songName));
+                deleteSpan.appendChild(document.createTextNode("TEST"));
+                let deleteSongModal = document.getElementById("delete-song-modal");
+
+                // OPEN UP THE DIALOG
+                deleteSongModal.classList.add("is-visible");
+                this.model.toggleConfirmDialogOpen();
+
             }
         }
     }

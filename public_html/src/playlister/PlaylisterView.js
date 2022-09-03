@@ -119,19 +119,31 @@ export default class PlaylisterView {
             // Songs are now enumerated on refresh
             // Youtube ID is listed in JSON, use this to hyperlink song names
 
-            // Create <a> element with href attribute
+            // MAKE THE HYPERLINK
             let createA = document.createElement("a");
-            // Reference JSON youtubeID element
             createA.setAttribute("href", "https://youtube.com/watch?v=" + song.youTubeId);
+            // ENUMERATE THE CARD
             let itemNum = document.createTextNode((i+1) + " ");
             let itemText = document.createTextNode(song.title + " by " + song.artist);
+
+            // HYPERLINNK ASSOCIATED WITH TEXT
             createA.appendChild(itemText);
             // itemDiv.appendChild(itemText);
+
+            // CREATE DELETE SONG BUTTON
+            let deleteSongButton = document.createElement("input");
+            deleteSongButton.setAttribute("type", "button");
+            // i = ID 
+            deleteSongButton.setAttribute("id", "delete-song-" + i);
+            deleteSongButton.setAttribute("class", "list-card-button");
+            deleteSongButton.setAttribute("value", "✕");
 
             //Enumerates Song
             itemDiv.appendChild(itemNum);
             // Hyperlink wraps song title + artist
             itemDiv.appendChild(createA);
+            // ADD DELETE BUTTON
+            itemDiv.appendChild(deleteSongButton);
 
             // AND PUT THE CARD INTO THE UI
             itemsDiv.appendChild(itemDiv);
