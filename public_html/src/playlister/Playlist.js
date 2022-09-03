@@ -39,6 +39,15 @@ export default class Playlist {
         this.songs.splice(newIndex, 0, this.songs.splice(oldIndex, 1)[0]);
     }
 
+    addSong(){
+        let newSong = {
+            "title": "Untitled",
+            "artist": "Unknown",
+            "youTubeId": "dQw4w9WgXcQ"
+        };
+        this.songs.push(newSong);
+    }
+
     // addSong(song){
     //     this.songs[this.songs.length] = song;
     // }

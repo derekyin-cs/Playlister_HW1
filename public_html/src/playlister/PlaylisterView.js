@@ -126,7 +126,7 @@ export default class PlaylisterView {
             let itemNum = document.createTextNode((i+1) + " ");
             let itemText = document.createTextNode(song.title + " by " + song.artist);
 
-            // HYPERLINNK ASSOCIATED WITH TEXT
+            // HYPERLINK ASSOCIATED WITH TEXT
             createA.appendChild(itemText);
             // itemDiv.appendChild(itemText);
 

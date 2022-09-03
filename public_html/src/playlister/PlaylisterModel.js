@@ -269,10 +269,20 @@ export default class PlaylisterModel {
     }
 
     deleteSong(index) {
-        if (this.hasCurrentList()){
+        if (this.hasCurrentList()) {
             this.currentList.removeSongAt(index);
             this.view.refreshPlaylist(this.currentList);
         }
+        this.saveLists();
+    }
+
+    addSong() {
+        if (this.hasCurrentList()) {
+            // add song here
+            this.currentList.addSong();
+            this.view.refreshPlaylist(this.currentList);
+        }
+
         this.saveLists();
     }
 
