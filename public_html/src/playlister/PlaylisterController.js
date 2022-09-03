@@ -279,11 +279,12 @@ export default class PlaylisterController {
 
                 //this.listToDeleteIndex = this.model.getListIndex(id);
                 // get name of song
-                //let songName = this.model.getList(this.listToDeleteIndex).getName();
+                let song = this.model.currentList.getSongAt(i);
+                let songName = song.title;
                 let deleteSpan = document.getElementById("delete-song-span");
                 deleteSpan.innerHTML = "";
-                //deleteSpan.appendChild(document.createTextNode(songName));
-                deleteSpan.appendChild(document.createTextNode("TEST"));
+                deleteSpan.appendChild(document.createTextNode(songName));
+                // deleteSpan.appendChild(document.createTextNode("TEST"));
                 let deleteSongModal = document.getElementById("delete-song-modal");
 
                 // OPEN UP THE DIALOG
