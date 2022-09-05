@@ -8,7 +8,7 @@ import jsTPS_Transaction from "../../common/jsTPS.js"
  * @author McKilla Gorilla
  * @author Derek Yin
  */
-export default class RemoveSong_Transaction extends jsTPS_Transaction {
+export default class EditSong_Transaction extends jsTPS_Transaction {
     constructor(initModel, initIndex) {
         super();
         this.model = initModel;
@@ -16,7 +16,7 @@ export default class RemoveSong_Transaction extends jsTPS_Transaction {
     }
 
     doTransaction() {
-        this.model.deleteSong(this.index);
+        this.model.addSong();
     }
 
     

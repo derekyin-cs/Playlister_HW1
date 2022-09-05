@@ -2,6 +2,8 @@ import jsTPS from "../common/jsTPS.js";
 import Playlist from "./Playlist.js";
 import AddSong_Transaction from "./transactions/AddSong_Transaction.js";
 import MoveSong_Transaction from "./transactions/MoveSong_Transaction.js";
+import RemoveSong_Transaction from "./transactions/RemoveSong_Transaction.js";
+import EditSong_Transaction from "./transactions/EditSong_Transaction.js";
 
 /**
  * PlaylisterModel.js
@@ -317,12 +319,12 @@ export default class PlaylisterModel {
         this.view.updateToolbarButtons(this);
     }
 
-    // addEditSongTransaction(song){
-    //     let transaction = new EditSong_Transaction(this, song);
-    //     this.tps.addTransaction(transaction);
-    //     this.view.updateToolbarButtons(this);
+    addEditSongTransaction(song){
+        let transaction = new EditSong_Transaction(this, song);
+        this.tps.addTransaction(transaction);
+        this.view.updateToolbarButtons(this);
 
-    // }
+    }
 
     
 }
