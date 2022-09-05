@@ -66,7 +66,12 @@ export default class PlaylisterController {
         }
 
         document.getElementById("add-button").onmousedown = (event) => {
-            this.model.addSong();
+
+            // fetch index to be added to
+            // then add to transaction stack
+            let index = this.model.currentList.length;
+            this.model.addAddSongTransaction(index);
+
         }
     }
 
@@ -112,8 +117,11 @@ export default class PlaylisterController {
         deleteSongConfirmButton.onclick = (event) => {
             let deleteSongIndex = this.model.getDeleteSongIndex();
 
-            // DELETE THE SONG, THIS IS NOT UNDOABLE
-            this.model.deleteSong(deleteSongIndex);
+            // DELETE THE SONG, THIS IS UNDOABLE
+
+            // instead of directly calling this.model.deleteSong(deleteSongIndex);
+            // we should add the transaction and let the transaction handle it
+            this.model.addRemoveSongTransaction(deleteSongIndex);
 
             // ALLOW OTHER INTERACTIONS
             this.model.toggleConfirmDialogOpen();

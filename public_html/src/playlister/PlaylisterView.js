@@ -225,13 +225,9 @@ export default class PlaylisterView {
         let tps = model.tps;
         if (model.confirmDialogOpen) {
             this.disableButton("add-list-button");
-            this.disableButton("undo-button");
-            this.disableButton("redo-button");
-            this.disableButton("close-button");
-            this.disableButton("add-button");
         }
         else{
-            this.enableButton("add-list-button");
+            return;
             // CONDITIONS FOR FOOLPROOF DESIGN:
     
             // ENABLE UNDO BUTTON IF TRANSACTION STACK IS NOT EMPTY
@@ -241,15 +237,6 @@ export default class PlaylisterView {
             // ENABLE CLOSE BUTTON IF ANY LIST IS SELECTED
             
             // ENABLE ADD BUTTON IF ANY LIST IS SELECTED
-            if (this.model.hasCurrentList()){
-                this.enableButton("add-button");
-                this.enableButton("close-button");
-            }
-            // ********NOT WORKING AS EXPECTED*********
-            else {
-                this.disableButton("add-button");
-                this.disableButton("close-button");
-            }
         }
         
         
