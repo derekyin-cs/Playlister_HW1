@@ -289,6 +289,47 @@ export default class PlaylisterModel {
         this.saveLists();
     }
 
+    addSongBack(index, title, artist, id) {
+        if (this.hasCurrentList()) {
+            this.currentList.addSongBack(index, title, artist, id);
+            this.view.refreshPlaylist(this.currentList);
+        }
+        this.saveLists();
+    }
+
+    // editSong(index) {
+    //     if (this.hasCurrentList()) {
+    //         let song = this.currentList.getSongAt(index);
+    //         // SET NEW TITLE
+    //         let titleInput = document.getElementById("song-title-text-input-" + index);
+    //         song["title"] = titleInput.getAttribute("value");
+
+    //         // SET NEW ARTIST
+    //         let artistInput = document.getElementById("song-artist-text-input-" + index);
+    //         song.artist = artistInput.getAttribute("value");
+
+    //         // SET NEW ID
+    //         let idInput = document.getElementById("song-id-text-input-" + index);
+    //         song.youTubeId = idInput.getAttribute("value");
+
+    //         this.view.refreshPlaylist(this.currentList);
+    //     }
+
+    //     this.saveLists();
+    // }
+
+    // TODO: Add new editSong function 
+
+    //TODO: add new edit method to handle an undo transaction
+    editSong(index, title, artist, id) {
+        if (this.hasCurrentList()) {
+            this.currentList.editSong(index, title, artist, id);
+            this.view.refreshPlaylist(this.currentList);
+        }
+        this.saveLists();
+    }
+
+
     // addSong() {
     //     // add logic here
     //     return;
@@ -313,14 +354,14 @@ export default class PlaylisterModel {
         this.view.updateToolbarButtons(this);
     }
 
-    addRemoveSongTransaction(index){
-        let transaction = new RemoveSong_Transaction(this, index);
+    addRemoveSongTransaction(index, title, artist, id){
+        let transaction = new RemoveSong_Transaction(this, index, title, artist, id);
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }
 
-    addEditSongTransaction(song){
-        let transaction = new EditSong_Transaction(this, song);
+    addEditSongTransaction(index, title, artist, id, newTitle, newArtist, newId){
+        let transaction = new EditSong_Transaction(this, index, title, artist, id, newTitle, newArtist, newId);
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
 

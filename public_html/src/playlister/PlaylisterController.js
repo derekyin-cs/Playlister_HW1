@@ -69,7 +69,7 @@ export default class PlaylisterController {
 
             // fetch index to be added to
             // then add to transaction stack
-            let index = this.model.currentList.length;
+            let index = this.model.currentList.size()-1;
             this.model.addAddSongTransaction(index);
 
         }
@@ -121,7 +121,8 @@ export default class PlaylisterController {
 
             // instead of directly calling this.model.deleteSong(deleteSongIndex);
             // we should add the transaction and let the transaction handle it
-            this.model.addRemoveSongTransaction(deleteSongIndex);
+            let song = this.model.currentList.getSongAt(deleteSongIndex);
+            this.model.addRemoveSongTransaction(deleteSongIndex, song.title, song.artist, song.id);
 
             // ALLOW OTHER INTERACTIONS
             this.model.toggleConfirmDialogOpen();
@@ -140,6 +141,46 @@ export default class PlaylisterController {
             // CLOSE THE MODAL
             let deleteSongModal = document.getElementById("delete-song-modal");
             deleteSongModal.classList.remove("is-visible");
+        }
+
+        let editSongConfirmButton = document.getElementById("edit-song-confirm-button");
+        editSongConfirmButton.onclick = (event) => {
+            let index = this.model.currentList.indexToEdit;
+            // let song = this.model.currentList.getSongAt(index);
+            let titleInput = document.getElementById("song-title-text-input-" + index);
+            let newTitle= titleInput.value;
+
+            let artistInput = document.getElementById("song-artist-text-input-" + index);
+            let newArtist = artistInput.value;
+
+            let idInput = document.getElementById("song-id-text-input-" + index);
+            let newId = idInput.value;
+
+            // let artistInput = document.getElementById("song-artist-text-input" + index);
+            // song.artist = artistInput.getAttribute("value");
+
+            // // SET NEW ID
+            // let idInput = document.getElementById("song-id-text-input" + index);
+            // song.youTubeId = idInput.getAttribute("value");
+
+            let song = this.model.currentList.getSongAt(index);
+            // TODO: finish this function
+            this.model.addEditSongTransaction(index, song.title, song.artist, song.youTubeId, newTitle, newArtist, newId);
+            this.model.toggleConfirmDialogOpen();
+
+            // CLOSE MODAL
+            let editSongModal = document.getElementById("edit-song-modal");
+            editSongModal.classList.remove("is-visible");
+
+        }
+
+        let editSongCancelButton = document.getElementById("edit-song-cancel-button");
+        editSongCancelButton.onclick = (event) => {
+            this.model.toggleConfirmDialogOpen();
+
+            // CLOSE MODAL
+            let editSongModal = document.getElementById("edit-song-modal");
+            editSongModal.classList.remove("is-visible");
         }
     }
 
@@ -279,6 +320,74 @@ export default class PlaylisterController {
                 }
             }
 
+            card.ondblclick = (event) => {
+
+                this.ignoreParentClick(event);
+                let song = this.model.currentList.getSongAt(i);
+                let songTitle = song.title;
+                let songArtist = song.artist;
+                let songId = song.youTubeId;
+
+                // ADD TEXT INPUT FOR TITLE
+                let titleTextInput = document.createElement("input");
+                titleTextInput.setAttribute("type", "text");
+                titleTextInput.setAttribute("id", "song-title-text-input-" + i);
+                titleTextInput.setAttribute("value", songTitle);
+                titleTextInput.style.width = "100%"
+
+                // UPDATE THE TITLE WHEN TEXT FIELD IS BLURRED
+                titleTextInput.onblur = (event) => {
+                    titleTextInput.value = event.target.value;
+                }
+                
+                // APPEND TEXT INPUT TO SPAN
+                let editTitleSpan = document.getElementById("edit-title-span");
+                editTitleSpan.innerHTML = "";
+                editTitleSpan.appendChild(titleTextInput);
+
+                // ADD TEXT INPUT FOR ARTIST
+                let artistTextInput = document.createElement("input");
+                artistTextInput.setAttribute("type", "text");
+                artistTextInput.setAttribute("id", "song-artist-text-input-" + i);
+                artistTextInput.setAttribute("value", songArtist);
+                artistTextInput.style.width = "100%"
+                
+                // UPDATE THE ARTIST WHEN TEXT FIELD IS BLURRED
+                artistTextInput.onblur = (event) => {
+                    artistTextInput.value = event.target.value;
+                }
+
+                // APPEND TEXT INPUT TO SPAN
+                let editArtistSpan = document.getElementById("edit-artist-span");
+                editArtistSpan.innerHTML = "";
+                editArtistSpan.appendChild(artistTextInput);
+
+
+                // ADD TEXT INPUT FOR YOUTUBE ID
+                let idTextInput = document.createElement("input");
+                idTextInput.setAttribute("type", "text");
+                idTextInput.setAttribute("id", "song-id-text-input-" + i);
+                idTextInput.setAttribute("value", songId);
+                idTextInput.style.width = "100%"
+                
+                // UPDATE THE ID WHEN TEXT FIELD IS BLURRED
+                idTextInput.onblur = (event) => {
+                    idTextInput.value = event.target.value;
+                }
+
+                // APPEND TEXT INPUT TO SPAN
+                let editIdSpan = document.getElementById("edit-id-span");
+                editIdSpan.innerHTML = "";
+                editIdSpan.appendChild(idTextInput);
+
+                // STORE INDEX OF SONG SO MODAL KNOWS WHICH ONE TO UPDATE
+                this.model.currentList.setIndexToEdit(i);
+                let editListModal = document.getElementById("edit-song-modal");
+                editListModal.classList.add("is-visible");
+                this.model.toggleConfirmDialogOpen();
+
+            }
+
             document.getElementById("delete-song-" + i).onmousedown = (event) => {
                 // prevent this event from propagating to lower-level controls
                 this.ignoreParentClick(event);
@@ -300,6 +409,8 @@ export default class PlaylisterController {
                 this.model.toggleConfirmDialogOpen();
 
             }
+
+            
         }
     }
 
