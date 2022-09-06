@@ -123,7 +123,7 @@ export default class PlaylisterView {
             let createA = document.createElement("a");
             createA.setAttribute("href", "https://youtube.com/watch?v=" + song.youTubeId);
             // ENUMERATE THE CARD
-            let itemNum = document.createTextNode((i+1) + " ");
+            let itemNum = document.createTextNode((i+1) + ". ");
             let itemText = document.createTextNode(song.title + " by " + song.artist);
 
             // HYPERLINK ASSOCIATED WITH TEXT
@@ -247,6 +247,7 @@ export default class PlaylisterView {
         //     this.enableButton("redo-button");
         // }
         else{
+            this.enableButton("add-list-button");
             if (model.hasCurrentList()) {
                 this.enableButton("add-button");
                 this.enableButton("close-button");
