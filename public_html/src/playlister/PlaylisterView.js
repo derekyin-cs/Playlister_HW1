@@ -225,9 +225,50 @@ export default class PlaylisterView {
         let tps = model.tps;
         if (model.confirmDialogOpen) {
             this.disableButton("add-list-button");
+            this.disableButton("close-button");
+            this.disableButton("add-button");
+            this.disableButton("undo-button");
+            this.disableButton("redo-button");
         }
+        // if (!model.confirmDialogOpen) {
+        //     this.enableButton("add-list-button");
+        // }
+
+        // if (!model.hasCurrentList()) {
+        //     this.disableButton("close-button");
+        //     this.disableButton("add-button");
+        //     this.disableButton("undo-button");
+        //     this.disableButton("redo-button");
+        // }
+        // if (model.hasCurrentList()) {
+        //     this.enableButton("close-button");
+        //     this.enableButton("add-button");
+        //     this.enableButton("undo-button");
+        //     this.enableButton("redo-button");
+        // }
         else{
-            return;
+            if (model.hasCurrentList()) {
+                this.enableButton("add-button");
+                this.enableButton("close-button");
+                if (tps.hasTransactionToUndo()) {
+                    this.enableButton("undo-button");
+                }
+                else {
+                    this.disableButton("undo-button");
+                }
+                if (tps.hasTransactionToRedo()) {
+                    this.enableButton("redo-button");
+                }
+                else {
+                    this.disableButton("redo-button");
+                }   
+            }
+            else {
+                this.disableButton("close-button");
+                this.disableButton("add-button");
+                this.disableButton("undo-button");
+                this.disableButton("redo-button");
+            }
             // CONDITIONS FOR FOOLPROOF DESIGN:
     
             // ENABLE UNDO BUTTON IF TRANSACTION STACK IS NOT EMPTY
