@@ -247,7 +247,13 @@ export default class PlaylisterView {
         //     this.enableButton("redo-button");
         // }
         else{
-            this.enableButton("add-list-button");
+            if (!model.hasCurrentList()) {
+                this.enableButton("add-list-button");
+            }
+            else {
+                this.disableButton("add-list-button");
+            }
+            
             if (model.hasCurrentList()) {
                 this.enableButton("add-button");
                 this.enableButton("close-button");

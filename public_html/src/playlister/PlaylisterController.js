@@ -333,7 +333,7 @@ export default class PlaylisterController {
                 titleTextInput.setAttribute("type", "text");
                 titleTextInput.setAttribute("id", "song-title-text-input-" + i);
                 titleTextInput.setAttribute("value", songTitle);
-                titleTextInput.style.width = "100%"
+                titleTextInput.style.width = "250px";
 
                 // UPDATE THE TITLE WHEN TEXT FIELD IS BLURRED
                 titleTextInput.onblur = (event) => {
@@ -350,7 +350,7 @@ export default class PlaylisterController {
                 artistTextInput.setAttribute("type", "text");
                 artistTextInput.setAttribute("id", "song-artist-text-input-" + i);
                 artistTextInput.setAttribute("value", songArtist);
-                artistTextInput.style.width = "100%"
+                artistTextInput.style.width = "250px"
                 
                 // UPDATE THE ARTIST WHEN TEXT FIELD IS BLURRED
                 artistTextInput.onblur = (event) => {
@@ -368,7 +368,7 @@ export default class PlaylisterController {
                 idTextInput.setAttribute("type", "text");
                 idTextInput.setAttribute("id", "song-id-text-input-" + i);
                 idTextInput.setAttribute("value", songId);
-                idTextInput.style.width = "100%"
+                idTextInput.style.width = "250px"
                 
                 // UPDATE THE ID WHEN TEXT FIELD IS BLURRED
                 idTextInput.onblur = (event) => {

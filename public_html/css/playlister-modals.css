@@ -190,3 +190,7 @@ span {
     transform: rotate(0deg);
   }
 }
+
+.edit-song-table {
+  font-size: 25pt;
+}
