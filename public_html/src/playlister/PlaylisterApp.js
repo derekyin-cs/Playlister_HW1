@@ -42,6 +42,7 @@ export class PlaylisterApp {
         if (!success) {
             this.loadListsFromJSON("./data/default_lists.json");
         }
+        this.model.refreshToolbar();
     }
 
     /*
